@@ -1,4 +1,6 @@
 import { memo, useState } from "react";
+import usePreviousValue from "../../hooks/usePreviousValue";
+import useTimeMachine from "../../hooks/useTimeMachine";
 import { ColorObject } from "../../interfaces/InterfacesSquareColor";
 import { ColorValue } from "../../interfaces/InterfacesSquareColor";
 
@@ -24,16 +26,13 @@ const SquareColor = () => {
   const [clickedDivs, setClickedDivs] = useState<ColorObject[]>([]);
   const [currentDivIndex, setCurrentDivIndex] = useState<number>(-1);
 
+  const previousCurrent = useTimeMachine<number>(currentDivIndex);
+  console.log(previousCurrent.previousvalue);
+
   const handleDivClick = (value: ColorObject, index: number) => {
     setClickedDivs((prevState) => [...prevState, value]);
     console.log(index);
     setCurrentDivIndex(index);
-  };
-
-  const handleBackClick = () => {
-    if (currentDivIndex > 0) {
-      setCurrentDivIndex((prevState) => prevState - 1);
-    }
   };
 
   return (
