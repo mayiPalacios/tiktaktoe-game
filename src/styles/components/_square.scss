@@ -1,0 +1,15 @@
+.container__block {
+  display: grid;
+  grid-template-columns: repeat(3, 0fr) 0fr;
+  grid-template-rows: repeat(4, 1fr) 1fr;
+  gap: 13px;
+  margin: 30px;
+  margin-left: 10em;
+  div {
+    height: 20vh;
+    width: 20vh;
+  }
+  div:hover {
+    cursor: pointer;
+  }
+}
