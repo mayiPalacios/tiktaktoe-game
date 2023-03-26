@@ -28,6 +28,15 @@ function reducer(state: Istate, action: Action): Istate {
       };
     }
 
+    case "resume": {
+      return {
+        ...state,
+        current: action.onload.current,
+        previousBlock: [],
+        nextBlock: [],
+      };
+    }
+
     case "current": {
       return { ...state, current: action.onload.current };
     }
