@@ -66,8 +66,8 @@ const SquareColor = () => {
   }, [previousCurrent]);
 
   const handleResumeClick = useCallback(() => {
-    dispatch({ type: "resume", onload: { current: currentDivIndex } });
     setAvailable(false);
+    dispatch({ type: "resume", onload: { current: currentDivIndex } });
   }, [previousCurrent]);
 
   return (
