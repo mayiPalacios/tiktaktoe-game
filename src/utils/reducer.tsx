@@ -3,6 +3,15 @@ import { Istate } from "../interfaces/typeReduce";
 
 function reducer(state: Istate, action: Action): Istate {
   switch (action.type) {
+    case "next": {
+      const [currentElement, ...currentBlock] = state.nextBlock;
+      return {
+        nextBlock: currentBlock,
+        previousBlock: [currentElement, ...state.previousBlock],
+        current: currentElement,
+      };
+    }
+
     case "previous": {
       let currentElment;
       let currentBlock;
@@ -11,6 +20,7 @@ function reducer(state: Istate, action: Action): Istate {
       } else {
         [currentElment, ...currentBlock] = action.onload.squareArray;
       }
+      console.log(currentBlock + " este es el currentBlock");
       return {
         nextBlock: [currentElment, ...state.nextBlock],
         previousBlock: currentBlock,
