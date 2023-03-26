@@ -37,9 +37,7 @@ const SquareColor = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const previousCurrent = useTimeMachine<number>(currentDivIndex);
-  console.log(...previousCurrent.previousvalue);
-  console.log(previousCurrent.getPreviousValue() + " cool");
-
+  console.log(previousCurrent.getPreviousValue() + " getpre");
   const handleDivClick = (index: number) => {
     setCurrentDivIndex(index);
     dispatch({ type: "current", onload: { current: index } });
@@ -65,6 +63,11 @@ const SquareColor = () => {
       },
     });
     setAvailable(true);
+  }, [previousCurrent]);
+
+  const handleResumeClick = useCallback(() => {
+    dispatch({ type: "resume", onload: { current: currentDivIndex } });
+    setAvailable(false);
   }, [previousCurrent]);
 
   return (
@@ -96,7 +99,9 @@ const SquareColor = () => {
       >
         Next
       </button>
-      <button>Resume</button>
+      <button onClick={handleResumeClick} disabled={!available}>
+        Resume
+      </button>
     </div>
   );
 };
