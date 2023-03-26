@@ -37,7 +37,8 @@ const SquareColor = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const previousCurrent = useTimeMachine<number>(currentDivIndex);
-  console.log(previousCurrent.previousvalue);
+  console.log(...previousCurrent.previousvalue);
+  console.log(previousCurrent.getPreviousValue() + " cool");
 
   const handleDivClick = (index: number) => {
     setCurrentDivIndex(index);
@@ -55,16 +56,28 @@ const SquareColor = () => {
     setAvailable(true);
   }, [previousCurrent]);
 
+  const handleNextClick = useCallback(() => {
+    dispatch({
+      type: "next",
+      onload: {
+        squareArray: [...previousCurrent.previousvalue],
+        oldCurrent: previousCurrent.getPreviousValue(),
+      },
+    });
+    setAvailable(true);
+  }, [previousCurrent]);
+
   return (
     <div className="container__block">
       {divColors.map((colorObj, index) => (
-        <div
+        <button
           key={`_${index + 1}`}
           style={{
             border: "1px solid black",
             backgroundColor: colorObj.value,
             opacity: state.current === index ? 1 : 0.5,
           }}
+          disabled={available}
           onClick={() => handleDivClick(index)}
         />
       ))}
@@ -75,8 +88,15 @@ const SquareColor = () => {
           previousCurrent.getPreviousValue() === undefined
         }
       >
-        Retroceder
+        Previous
       </button>
+      <button
+        onClick={handleNextClick}
+        disabled={currentDivIndex === state.current}
+      >
+        Next
+      </button>
+      <button>Resume</button>
     </div>
   );
 };
