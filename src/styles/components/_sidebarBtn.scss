@@ -1,0 +1,14 @@
+.container__sidebar--btn {
+  margin-top: 4vh;
+  display: flex;
+  flex-direction: column;
+  margin-left: 8vw;
+  gap: 12px;
+  button {
+    font-family: Delicious-Handrawn;
+    font-size: 15px;
+    background-color: rgb(225, 114, 114);
+    height: 5em;
+    width: 16em;
+  }
+}

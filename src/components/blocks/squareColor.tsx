@@ -71,37 +71,41 @@ const SquareColor = () => {
   }, [previousCurrent]);
 
   return (
-    <div className="container__block">
-      {divColors.map((colorObj, index) => (
+    <div id="container__main--timeMachine">
+      <div className="container__block">
+        {divColors.map((colorObj, index) => (
+          <button
+            key={`_${index + 1}`}
+            style={{
+              border: "1px solid black",
+              backgroundColor: colorObj.value,
+              opacity: state.current === index ? 1 : 0.5,
+            }}
+            disabled={available}
+            onClick={() => handleDivClick(index)}
+          />
+        ))}
+      </div>
+      <div className="container__sidebar--btn">
         <button
-          key={`_${index + 1}`}
-          style={{
-            border: "1px solid black",
-            backgroundColor: colorObj.value,
-            opacity: state.current === index ? 1 : 0.5,
-          }}
-          disabled={available}
-          onClick={() => handleDivClick(index)}
-        />
-      ))}
-      <button
-        onClick={handleBackClick}
-        disabled={
-          state.current === previousCurrent.getPreviousValue() ||
-          previousCurrent.getPreviousValue() === undefined
-        }
-      >
-        Previous
-      </button>
-      <button
-        onClick={handleNextClick}
-        disabled={currentDivIndex === state.current}
-      >
-        Next
-      </button>
-      <button onClick={handleResumeClick} disabled={!available}>
-        Resume
-      </button>
+          onClick={handleBackClick}
+          disabled={
+            state.current === previousCurrent.getPreviousValue() ||
+            previousCurrent.getPreviousValue() === undefined
+          }
+        >
+          <span>Previous</span>
+        </button>
+        <button
+          onClick={handleNextClick}
+          disabled={currentDivIndex === state.current}
+        >
+          <span>Next</span>
+        </button>
+        <button onClick={handleResumeClick} disabled={!available}>
+          <span>Resume</span>
+        </button>
+      </div>
     </div>
   );
 };
