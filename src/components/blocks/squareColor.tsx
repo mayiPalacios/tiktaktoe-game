@@ -1,8 +1,11 @@
-import { memo, useState } from "react";
+import { memo, useCallback, useReducer, useState } from "react";
 import usePreviousValue from "../../hooks/usePreviousValue";
 import useTimeMachine from "../../hooks/useTimeMachine";
 import { ColorObject } from "../../interfaces/InterfacesSquareColor";
 import { ColorValue } from "../../interfaces/InterfacesSquareColor";
+import reducer from "../../utils/reducer";
+import { Istate } from "../../interfaces/typeReduce";
+import TimeMachine from "../../pages/timeMachine/timeMachine";
 
 const divColors: ColorObject[] = [
   { value: "red" as ColorValue, type: "bg" },
@@ -22,33 +25,58 @@ const divColors: ColorObject[] = [
   { value: "current" as ColorValue, type: "bg" },
   { value: "violet" as ColorValue, type: "bg" },
 ];
+
 const SquareColor = () => {
-  const [clickedDivs, setClickedDivs] = useState<ColorObject[]>([]);
   const [currentDivIndex, setCurrentDivIndex] = useState<number>(-1);
+  const [available, setAvailable] = useState<boolean>(false);
+  const initialState: Istate = {
+    current: currentDivIndex,
+    nextBlock: [],
+    previousBlock: [],
+  };
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const previousCurrent = useTimeMachine<number>(currentDivIndex);
   console.log(previousCurrent.previousvalue);
 
-  const handleDivClick = (value: ColorObject, index: number) => {
-    setClickedDivs((prevState) => [...prevState, value]);
-    console.log(index);
+  const handleDivClick = (index: number) => {
     setCurrentDivIndex(index);
+    dispatch({ type: "current", onload: { current: index } });
   };
+
+  const handleBackClick = useCallback(() => {
+    dispatch({
+      type: "previous",
+      onload: {
+        squareArray: [...previousCurrent.previousvalue],
+        oldCurrent: previousCurrent.getPreviousValue(),
+      },
+    });
+    setAvailable(true);
+  }, [previousCurrent]);
 
   return (
     <div className="container__block">
       {divColors.map((colorObj, index) => (
         <div
-          key={index}
+          key={`_${index + 1}`}
           style={{
             border: "1px solid black",
             backgroundColor: colorObj.value,
-            opacity: currentDivIndex === index ? 1 : 0.5,
+            opacity: state.current === index ? 1 : 0.5,
           }}
-          onClick={() => handleDivClick(colorObj, index)}
+          onClick={() => handleDivClick(index)}
         />
       ))}
-      <button onClick={handleBackClick}>Retroceder</button>
+      <button
+        onClick={handleBackClick}
+        disabled={
+          state.current === previousCurrent.getPreviousValue() ||
+          previousCurrent.getPreviousValue() === undefined
+        }
+      >
+        Retroceder
+      </button>
     </div>
   );
 };
