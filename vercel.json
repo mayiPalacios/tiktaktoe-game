@@ -1,7 +1,7 @@
 {
   "rewrites":  [
-    {"source": "/menu", "destination": "/gameMenu.tsx"},
-     {"source": "/TimeMachine", "destination": "/timeMachine.tsx"},
-     {"source": "/TictacToe", "destination": "/ticTacToe.tsx"}
+    {"source": "/menu", "destination": "/pages/main/gameMenu.tsx"},
+     {"source": "/TimeMachine", "destination": "/pages/timeMachine/timeMachine.tsx"},
+     {"source": "/TictacToe", "destination": "/pages/ticTacToe/ticTacToe.tsx"}
   ]
 }
