@@ -37,9 +37,7 @@ const SquareColor = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const previousCurrent = useTimeMachine<number>(currentDivIndex);
-  console.log(...previousCurrent.previousvalue);
-  console.log(previousCurrent.getPreviousValue() + " cool");
-
+  console.log(previousCurrent.getPreviousValue() + " getpre");
   const handleDivClick = (index: number) => {
     setCurrentDivIndex(index);
     dispatch({ type: "current", onload: { current: index } });
@@ -67,36 +65,47 @@ const SquareColor = () => {
     setAvailable(true);
   }, [previousCurrent]);
 
+  const handleResumeClick = useCallback(() => {
+    dispatch({ type: "resume", onload: { current: currentDivIndex } });
+    setAvailable(false);
+  }, [previousCurrent]);
+
   return (
-    <div className="container__block">
-      {divColors.map((colorObj, index) => (
+    <div className="container__main">
+      <div className="container__block">
+        {divColors.map((colorObj, index) => (
+          <button
+            key={`_${index + 1}`}
+            style={{
+              border: "1px solid black",
+              backgroundColor: colorObj.value,
+              opacity: state.current === index ? 1 : 0.5,
+            }}
+            disabled={available}
+            onClick={() => handleDivClick(index)}
+          />
+        ))}
+      </div>
+      <div className="container__sidebar--btn">
         <button
-          key={`_${index + 1}`}
-          style={{
-            border: "1px solid black",
-            backgroundColor: colorObj.value,
-            opacity: state.current === index ? 1 : 0.5,
-          }}
-          disabled={available}
-          onClick={() => handleDivClick(index)}
-        />
-      ))}
-      <button
-        onClick={handleBackClick}
-        disabled={
-          state.current === previousCurrent.getPreviousValue() ||
-          previousCurrent.getPreviousValue() === undefined
-        }
-      >
-        Previous
-      </button>
-      <button
-        onClick={handleNextClick}
-        disabled={currentDivIndex === state.current}
-      >
-        Next
-      </button>
-      <button>Resume</button>
+          onClick={handleBackClick}
+          disabled={
+            state.current === previousCurrent.getPreviousValue() ||
+            previousCurrent.getPreviousValue() === undefined
+          }
+        >
+          <span>Previous</span>
+        </button>
+        <button
+          onClick={handleNextClick}
+          disabled={currentDivIndex === state.current}
+        >
+          <span>Next</span>
+        </button>
+        <button onClick={handleResumeClick} disabled={!available}>
+          <span>Resume</span>
+        </button>
+      </div>
     </div>
   );
 };
