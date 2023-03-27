@@ -1,0 +1,7 @@
+{
+  "rewrites":  [
+    {"source": "/menu", "destination": "/gameMenu.tsx"},
+     {"source": "/TimeMachine", "destination": "/timeMachine.tsx"},
+     {"source": "/TictacToe", "destination": "/ticTacToe.tsx"}
+  ]
+}
