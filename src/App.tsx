@@ -5,16 +5,14 @@ import Gamemenu from "./pages/main/gameMenu";
 
 function App() {
   return (
-    <div>
-      <BrowserRouter>
-        <Routes>
-          <Route index path="/" element={<Gamemenu />} />
-          <Route path="/menu" element={<Gamemenu />} />
-          <Route path="/TimeMachine" element={<TimeMachine />} />
-          <Route path="/TictacToe" element={<TictacToe />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route index path="/" element={<Gamemenu />} />
+        <Route path="/menu" element={<Gamemenu />} />
+        <Route path="/TimeMachine" element={<TimeMachine />} />
+        <Route path="/TictacToe" element={<TictacToe />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
