@@ -22,6 +22,7 @@ const SquareTictactoe = () => {
 
   const [available, dispatch] = useReducer(reducerTic, initialState);
   const timeMachine = useTimeMachine<string[]>(currentPlayer.moves);
+  console.log(timeMachine.previousvalue.length - 1);
 
   useEffect(() => {
     if (!available.available) {
@@ -66,6 +67,25 @@ const SquareTictactoe = () => {
     });
   }, [timeMachine.getPreviousValue]);
 
+  const handleResumeBtn = useCallback(() => {
+    dispatch({
+      type: "current",
+      payload: {
+        current: timeMachine.previousvalue.length - 1,
+        isAvailable: true,
+      },
+    });
+  }, [timeMachine.getPreviousValue]);
+
+  const handleRestartBtn = useCallback(() => {
+    setCurrentPlayer({ moves: Array(9).fill(""), whoisNext: true });
+    setWinner("");
+    dispatch({
+      type: "current",
+      payload: { current: 0, isAvailable: false },
+    });
+  }, []);
+
   return (
     <div className="container__main">
       <div className="container__square--tictactoe">
@@ -97,7 +117,7 @@ const SquareTictactoe = () => {
         >
           <span>Next</span>
         </button>
-        <button>
+        <button onClick={handleResumeBtn}>
           <span>Resume</span>
         </button>
         <button

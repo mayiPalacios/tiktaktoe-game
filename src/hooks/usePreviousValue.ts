@@ -9,6 +9,11 @@ const usePreviousValue = <T>(data: T) => {
         ref.current.unshift(data);
       }
     } else if (Array.isArray(data)) {
+      if (data.every((event) => event === "")) {
+        while (ref.current.length) {
+          ref.current.pop();
+        }
+      }
       ref.current.push(data);
     }
   }, [data]);
