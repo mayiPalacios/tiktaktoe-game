@@ -1,3 +1,10 @@
 .container__main {
   display: flex;
 }
+
+.container__game--menu {
+  display: flex;
+  margin-top: 30vh;
+  margin-left: 35vw;
+  gap: 30px;
+}

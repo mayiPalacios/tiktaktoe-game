@@ -8,10 +8,13 @@ interface Iplayer {
 
 const SquareTictactoe = () => {
   const [winner, setWinner] = useState<string>("");
+  const [available, setAvailable] = useState();
   const [currentPlayer, setCurrentPlayer] = useState<Iplayer>({
     moves: Array(9).fill(""),
     whoisNext: true,
   });
+
+  console.log(currentPlayer.moves);
 
   useEffect(() => {
     const isWinner = CalculateWinner(currentPlayer.moves);
