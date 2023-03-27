@@ -1,5 +1,12 @@
+import { Fragment } from "react";
+import SquareTictactoe from "../../components/blocks/squareTictactoe";
+
 const TictacToe = () => {
-  return <h1>hola tic</h1>;
+  return (
+    <Fragment>
+      <SquareTictactoe />
+    </Fragment>
+  );
 };
 
 export default TictacToe;

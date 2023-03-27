@@ -13,3 +13,24 @@
     cursor: pointer;
   }
 }
+
+.container__square--tictactoe {
+  display: grid;
+  grid-template-columns: repeat(2, 0fr) 0fr;
+  grid-template-rows: repeat(2, 1fr) 1fr;
+  gap: 2px;
+  margin: 30px;
+  margin-left: 10em;
+  button {
+    height: 25vh;
+    width: 25vh;
+  }
+}
+
+.container__sidebar--btn {
+  #div__next--move {
+    height: 20vh;
+    margin-bottom: 12px;
+    background-color: gray;
+  }
+}
