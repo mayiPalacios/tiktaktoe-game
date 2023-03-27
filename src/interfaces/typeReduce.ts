@@ -9,3 +9,8 @@ export interface Istate {
   nextBlock: number[];
   previousBlock: number[];
 }
+
+export interface IstateTic {
+  current: number;
+  available: boolean;
+}

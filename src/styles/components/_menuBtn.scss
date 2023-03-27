@@ -1,0 +1,16 @@
+.container__menu--btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  button {
+    background-color: transparent;
+    border: none;
+    img {
+      height: 30vh;
+    }
+  }
+  button:hover {
+    cursor: pointer;
+  }
+}
