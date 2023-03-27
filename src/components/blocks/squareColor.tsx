@@ -71,7 +71,7 @@ const SquareColor = () => {
   }, [previousCurrent]);
 
   return (
-    <div id="container__main--timeMachine">
+    <div className="container__main">
       <div className="container__block">
         {divColors.map((colorObj, index) => (
           <button
