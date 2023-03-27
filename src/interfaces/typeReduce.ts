@@ -7,7 +7,8 @@ export type Action =
 export type Taction =
   | { type: "previous" }
   | { type: "current"; payload: { current: number; isAvailable?: boolean } }
-  | { type: "next"; payload: { arrayNext: number } };
+  | { type: "next"; payload: { arrayNext: number } }
+  | { type: "resume"; payload: { returnCurrent: number } };
 
 export interface Istate {
   current: number;
