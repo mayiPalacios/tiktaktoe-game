@@ -32,5 +32,12 @@
     height: 20vh;
     margin-bottom: 12px;
     background-color: gray;
+    display: flex;
+    align-items: center;
+
+    h1 {
+      margin-left: 80px;
+      font-size: 100px;
+    }
   }
 }
