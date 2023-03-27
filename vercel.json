@@ -1,7 +1,8 @@
 {
-  "rewrites":  [
-    {"source": "/menu", "destination": "/pages/main/gameMenu.tsx"},
-     {"source": "/TimeMachine", "destination": "/pages/timeMachine/timeMachine.tsx"},
-     {"source": "/TictacToe", "destination": "/pages/ticTacToe/ticTacToe.tsx"}
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
   ]
 }
