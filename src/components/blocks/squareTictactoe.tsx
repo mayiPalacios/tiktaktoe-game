@@ -59,6 +59,13 @@ const SquareTictactoe = () => {
     dispatch({ type: "previous" });
   }, []);
 
+  const handleNextBtn = useCallback(() => {
+    dispatch({
+      type: "next",
+      payload: { arrayNext: timeMachine.previousvalue.length },
+    });
+  }, [timeMachine.getPreviousValue]);
+
   return (
     <div className="container__main">
       <div className="container__square--tictactoe">
@@ -82,18 +89,30 @@ const SquareTictactoe = () => {
           ))}
       </div>
       <div className="container__sidebar--btn">
-        <button>
+        <button
+          onClick={() => {
+            handleNextBtn();
+          }}
+          disabled={!available.available}
+        >
           <span>Next</span>
         </button>
         <button>
           <span>Resume</span>
         </button>
-        <button onClick={() => handlePreviousBtn()}>
+        <button
+          disabled={available.current <= 1}
+          onClick={() => handlePreviousBtn()}
+        >
           <span>Previous</span>
         </button>
         <div>
           <span>Next Move</span>
-          <div id="div__next--move"></div>
+          <div id="div__next--move">
+            <h1>
+              {winner === "" ? (currentPlayer.whoisNext ? "X" : "O") : winner}
+            </h1>
+          </div>
           <button>Restart</button>
         </div>
       </div>

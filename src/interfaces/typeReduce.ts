@@ -6,7 +6,8 @@ export type Action =
 
 export type Taction =
   | { type: "previous" }
-  | { type: "current"; payload: { current: number; isAvailable?: boolean } };
+  | { type: "current"; payload: { current: number; isAvailable?: boolean } }
+  | { type: "next"; payload: { arrayNext: number } };
 
 export interface Istate {
   current: number;

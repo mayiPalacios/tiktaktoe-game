@@ -20,6 +20,14 @@ function reducerTic(state: IstateTic, action: Taction): IstateTic {
       };
     }
 
+    case "next": {
+      const res = state.current + 1;
+      if (res < action.payload.arrayNext) {
+        return { ...state, current: res };
+      }
+      return { current: state.current, available: false };
+    }
+
     default:
       return { current: -1, available: false };
   }
