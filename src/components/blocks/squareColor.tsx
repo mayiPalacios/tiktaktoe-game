@@ -1,11 +1,9 @@
 import { memo, useCallback, useReducer, useState } from "react";
-import usePreviousValue from "../../hooks/usePreviousValue";
 import useTimeMachine from "../../hooks/useTimeMachine";
 import { ColorObject } from "../../interfaces/InterfacesSquareColor";
 import { ColorValue } from "../../interfaces/InterfacesSquareColor";
 import reducer from "../../utils/reducer";
 import { Istate } from "../../interfaces/typeReduce";
-import TimeMachine from "../../pages/timeMachine/timeMachine";
 
 const divColors: ColorObject[] = [
   { value: "red" as ColorValue, type: "bg" },
@@ -37,10 +35,15 @@ const SquareColor = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const previousCurrent = useTimeMachine<number>(currentDivIndex);
-  console.log(previousCurrent.getPreviousValue() + " getpre");
+  console.log(previousCurrent.previousvalue);
+
   const handleDivClick = (index: number) => {
-    setCurrentDivIndex(index);
-    dispatch({ type: "current", onload: { current: index } });
+    if (previousCurrent.previousvalue.includes(index)) {
+      console.log("lo siento no puede seleccionar dos veces el mismo cuadro");
+    } else {
+      setCurrentDivIndex(index);
+      dispatch({ type: "current", onload: { current: index } });
+    }
   };
 
   const handleBackClick = useCallback(() => {
