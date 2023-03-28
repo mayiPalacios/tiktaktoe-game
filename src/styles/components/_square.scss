@@ -1,7 +1,7 @@
 .container__block {
   display: grid;
   grid-template-columns: repeat(3, 0fr) 0fr;
-  grid-template-rows: repeat(4, 1fr) 1fr;
+  grid-template-rows: repeat(2, 1fr) 1fr;
   gap: 13px;
   margin: 30px;
   margin-left: 10em;
@@ -22,8 +22,10 @@
   margin: 30px;
   margin-left: 10em;
   button {
+    color: black;
     height: 25vh;
     width: 25vh;
+    font-size: 52px;
   }
 }
 
