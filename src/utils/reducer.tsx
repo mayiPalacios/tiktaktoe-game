@@ -20,7 +20,7 @@ function reducer(state: Istate, action: Action): Istate {
       } else {
         [currentElment, ...currentBlock] = action.onload.squareArray;
       }
-      console.log(currentBlock + " este es el currentBlock");
+
       return {
         nextBlock: [currentElment, ...state.nextBlock],
         previousBlock: currentBlock,
