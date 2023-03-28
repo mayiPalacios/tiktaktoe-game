@@ -3,11 +3,7 @@ import { CalculateWinner } from "../../utils/calculateWinner";
 import reducerTic from "../../utils/reducerTic";
 import { IstateTic } from "../../interfaces/typeReduce";
 import useTimeMachine from "../../hooks/useTimeMachine";
-
-interface Iplayer {
-  moves: string[];
-  whoisNext: boolean;
-}
+import { Iplayer } from "../../interfaces/InterfaceTictactoePlayer";
 
 const SquareTictactoe = () => {
   const [winner, setWinner] = useState<string>("");
@@ -25,7 +21,6 @@ const SquareTictactoe = () => {
 
   const [available, dispatch] = useReducer(reducerTic, initialState);
   const timeMachine = useTimeMachine<string[]>(currentPlayer.moves);
-  console.log(timeMachine.previousvalue.length - 1);
 
   useEffect(() => {
     if (!available.available) {
@@ -39,7 +34,6 @@ const SquareTictactoe = () => {
   useEffect(() => {
     const isWinner = CalculateWinner(currentPlayer.moves);
     if (isWinner) {
-      console.log(isWinner);
       setWinner(isWinner);
       setShowAlert(true);
     }
@@ -90,6 +84,7 @@ const SquareTictactoe = () => {
       type: "current",
       payload: { current: 0, isAvailable: false },
     });
+    window.location.reload();
   }, []);
 
   const handleReplay = useCallback(() => {
@@ -133,6 +128,7 @@ const SquareTictactoe = () => {
               {currentPlayer.moves[index]}
             </button>
           ))}
+
         {available.available &&
           !replay &&
           timeMachine.previousvalue[available.current].map((event, index) => (
@@ -144,12 +140,13 @@ const SquareTictactoe = () => {
               {event}
             </button>
           ))}
+
         {replay &&
           timeMachine.previousvalue[index].map((event, index) => (
             <button
               key={`_${index + 1}`}
               onClick={() => handleButtonClick(index)}
-              disabled={true}
+              disabled={false}
             >
               {event}
             </button>
@@ -161,10 +158,11 @@ const SquareTictactoe = () => {
           onClick={() => {
             handleNextBtn();
           }}
-          disabled={!available.available}
+          disabled={!available.available || replay}
         >
           <span>Next</span>
         </button>
+
         {winner === "" ? (
           <button onClick={handleResumeBtn} disabled={!available.available}>
             <span>Resume</span>
@@ -176,7 +174,7 @@ const SquareTictactoe = () => {
         )}
 
         <button
-          disabled={available.current <= 1}
+          disabled={available.current <= 1 || replay}
           onClick={() => handlePreviousBtn()}
         >
           <span>Previous</span>

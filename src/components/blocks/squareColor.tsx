@@ -35,12 +35,9 @@ const SquareColor = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const previousCurrent = useTimeMachine<number>(currentDivIndex);
-  console.log(previousCurrent.previousvalue);
 
   const handleDivClick = (index: number) => {
-    if (previousCurrent.previousvalue.includes(index)) {
-      console.log("lo siento no puede seleccionar dos veces el mismo cuadro");
-    } else {
+    if (!previousCurrent.previousvalue.includes(index)) {
       setCurrentDivIndex(index);
       dispatch({ type: "current", onload: { current: index } });
     }
@@ -89,6 +86,7 @@ const SquareColor = () => {
           />
         ))}
       </div>
+
       <div className="container__sidebar--btn">
         <button
           onClick={handleBackClick}
@@ -99,12 +97,14 @@ const SquareColor = () => {
         >
           <span>Previous</span>
         </button>
+
         <button
           onClick={handleNextClick}
           disabled={currentDivIndex === state.current}
         >
           <span>Next</span>
         </button>
+
         <button onClick={handleResumeClick} disabled={!available}>
           <span>Resume</span>
         </button>
